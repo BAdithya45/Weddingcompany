@@ -23,8 +23,13 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup():
     """Initialize database connection on startup"""
-    await connectDb()
-    print("✓ Application started successfully")
+    try:
+        await connectDb()
+        print("✓ Application started successfully")
+    except Exception as e:
+        print(f"⚠ Warning: Could not connect to MongoDB: {str(e)}")
+        print("⚠ Application will start but database operations will fail")
+        print("⚠ Please configure MONGO_URL in .env file")
 
 # Shutdown event
 @app.on_event("shutdown")
