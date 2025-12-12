@@ -42,7 +42,12 @@ async def shutdown():
 @app.get("/")
 async def root():
     """Health check endpoint"""
-    return {"status": "working"}
+    return {
+        "status": "working",
+        "message": "Organization Management Service API",
+        "docs": "/docs",
+        "version": "1.0.0"
+    }
 
 # Include routers
 app.include_router(orgRoutes.router)
